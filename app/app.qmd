@@ -1,0 +1,80 @@
+---
+title: "Ejemplo de dashboard en Shiny"
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(shiny)
+library(readr)
+library(tidyverse)
+library(janitor)
+library(plotly)
+
+curvas_cero_cupon <- read_delim(
+  "../datos/curvas-cero-cupon-csv.csv",
+  delim = ";",          # Especifica el delimitador como punto y coma
+  locale = locale(decimal_mark = ",")  # Define la coma como separador decimal
+)
+
+curvas_long <- curvas_cero_cupon %>%
+  pivot_longer(cols = starts_with("Curva Cero Cupón"), 
+               names_to = "Tipo", 
+               values_to = "Valor")
+```
+
+# {.sidebar}
+
+
+```{r}
+selectInput("curva", "Seleccione una curva", unique(curvas_long$Tipo))
+
+sliderInput("X", "Distanciamiento eje X",
+  min = 0.08, max = 10,
+  value = 1
+)
+
+sliderInput("Y", "Distanciamiento eje Y",
+  min = 0.04, max = 2,
+  value = .5
+)
+```
+
+# Plot
+
+```{r}
+plotlyOutput("plot")
+```
+
+# Data
+
+```{r}
+tableOutput("data")
+```
+
+```{r}
+#| context: server
+
+output$plot <- renderPlotly({
+  p <- ggplot(curvas_long %>% filter(Tipo == input$curva), 
+       aes(x = `Vencimiento (Años)`, y = Valor)) + 
+  geom_point() + 
+  labs(title = paste("Curva Cero Cupón:", input$curva),
+       x = "Vencimiento (Años)",
+       y = "Valor") +
+  scale_x_continuous(breaks = seq(0, 
+                                  max(curvas_long$`Vencimiento (Años)`), 
+                                  by = input$X)) + 
+  scale_y_continuous(breaks = seq(min(curvas_long$Valor), 
+                                  max(curvas_long$Valor), 
+                                  by = input$Y)) +
+  theme_minimal()
+
+  ggplotly(p)  # Imprime el gráfico
+})
+
+output$data <- renderTable({
+  curvas_cero_cupon  # Muestra la base de datos original
+})
+```
