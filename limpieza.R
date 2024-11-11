@@ -8,4 +8,5 @@ curvas_cero_cupon <- read_delim(
   locale = locale(decimal_mark = ",")  # Define la coma como separador decimal
 )
 
+curvas_cero_cupon <- curvas_cero_cupon %>% clean_names()
 
