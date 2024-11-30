@@ -21,7 +21,7 @@ curvas_cero_cupon <- read_delim(
 curvas_long <- curvas_cero_cupon %>%
   pivot_longer(cols = starts_with("Curva Cero Cupón"), 
                names_to = "Tipo", 
-               values_to = "Valor")
+               values_to = "Tasa de interés")
 ```
 
 # {.sidebar}
