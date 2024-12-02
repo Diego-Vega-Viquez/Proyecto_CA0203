@@ -12,6 +12,10 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{siunitx}
+\usepackage{geometry}
+\usepackage{multicol} % Para múltiples columnas
+\usepackage{paracol}  % Para dividir en columnas paralelas
+
 \sisetup{
   round-mode          = places, % Redondeo
   round-precision     = 2, %  solo 2 decimales
@@ -20,6 +24,13 @@
 \author{Estudiante 1, Estudiante 2, y Estudiante 3}
 \date{\today}
 \title{Proyecto de CA-0203}
+
+\geometry{
+    left=2.0cm, % El margen izquierdo mide 2.0cm
+    right=2.0cm, % El margen derecho mide 2.0cm
+    top=2.5cm, % El margen superior mide 2.0cm
+    bottom=2.5cm % El margen inferior mide 2.0cm
+}
 
 \begin{document}
 
@@ -32,7 +43,7 @@
 \newpage
 
 %Seccion 2: tipo de cambio forward
-\section{Análisis del Contrato Forward de Tipo de Cambio y Estrategia para Mitigación de Riesgo Cambiario}
+\section*{Análisis del Contrato Forward de Tipo de Cambio y Estrategia para Mitigación de Riesgo Cambiario}
 
 \subsection*{Determinación del precio del contrato forward}
 
@@ -47,33 +58,103 @@ La estrategia para replicar los flujos del contrato forward sería la siguiente:
 
 El costo de esta estrategia en \( t \) será:
 \[
-kP_{\text{₡}}(t, T) - E_t P_{\text{\$}}(t, T),
+K \cdot P_{\text{₡}}(t, T) - E_t P_{\text{\$}}(t, T),
 \]
 donde \( P_{\text{₡}}(t, T) \) es el precio actual de un bono cero cupón en colones. Este valor representa el precio justo del contrato forward, ya que replica perfectamente los flujos futuros.
+
+La siguiente tabla permite visualizar los flujos para esta estrategia de inversión.
+
+\begin{table}[h!]
+        \centering
+        \begin{tabular}{ c c c | c}
+            \textbf{Tiempo} & \textbf{Se recibe} & \textbf{Se paga} & \textbf{Flujo Neto}\\  \hline 
+            $t$ & {$K \cdot P_{\text{₡}}(t, T)$} & {$ E_t P_{\text{\$}}(t, T)$} & {$K \cdot P_{\text{₡}}(t, T) - E_t P_{\text{\$}}(t, T)$} \\
+            $T$ & {$E_T$} & {$K$} & $E_T - K$ 
+        \end{tabular}
+    \end{table}
 
 \subsection*{Proyección del tipo de cambio futuro}
 
 Para anticipar el comportamiento del tipo de cambio y calcular el forward, es necesario identificar el monto \( K \) que hace que el valor del contrato en \( t \) sea cero. Este valor se obtiene como:
 \[
-k = \frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)},
+K = \frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)},
 \]
 lo que indica el tipo de cambio forward.
 
 Esta fórmula implica que el tipo de cambio forward es el mejor estimador del tipo de cambio esperado \( E_T \) bajo el principio de ausencia de arbitraje. La lógica detrás de esto es que, si ambas partes del contrato se ponen de acuerdo en que intercambiar \( E_T \) por $\frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)}$ en \( T \) hace que el precio del contrato sea 0, entonces eso significa que a ambas partes les es indiferente participar o no en el contrato; en otras palabras, para la empresa ABC sería lo mismo asegurar un intercambio de \( E_T \) por $\frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)}$ a través de un contrato forward de tipo de cambio o simplemente esperar a pagar el \( E_T \) que determine el mercado en el futuro. 
 
-Por tanto, para la planificación presupuestaria de la empresa, el valor de $\frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)}$ debe ser tomado como referencia para prever el costo de los insumos en dólares al final de cada mes durante los próximos cinco años.
+Por tanto, para la planificación presupuestaria de la empresa, el valor de $\frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)}$ debe ser tomado como referencia para prever el costo de los insumos en dólares al final de cada mes durante los próximos cinco años. 
+
+Seguidamente se muestra una gráfica que representa visualmente dicha proyección del tipo de cambio futuro.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{grafico_tipo_de_cambio.png}
     \caption{Proyección del tipo de cambio \( E_T \) en los próximos 5 años}
     \label{fig:enter-label}
 \end{figure}
+De forma tabular los datos corresponden a 
+
+\begin{center}
+    \subsubsection*{Predicción de Tipo de Cambio}
+\end{center}
+
+\begin{paracol}{2} % Indica que habrá dos columnas
+
+% Primera columna
+\begin{tabular}{ll}
+  \toprule
+Fecha & Predicción \\ 
+  \midrule
+31/10/2024 & ₡515.61 \\ 
+30/11/2024 & ₡515.28 \\ 
+31/12/2024 & ₡515.12 \\ 
+31/01/2025 & ₡515.11 \\ 
+28/02/2025 & ₡515.19 \\ 
+31/03/2025 & ₡515.40 \\ 
+30/04/2025 & ₡515.71 \\ 
+31/05/2025 & ₡516.06 \\ 
+30/06/2025 & ₡516.52 \\ 
+31/07/2025 & ₡517.08 \\ 
+31/08/2025 & ₡517.67 \\ 
+30/09/2025 & ₡518.26 \\ 
+31/10/2025 & ₡518.97 \\ 
+30/11/2025 & ₡519.69 \\ 
+31/12/2025 & ₡520.51 \\ 
+  \bottomrule
+\end{tabular}
+
+\switchcolumn % Cambia a la segunda columna
+
+% Segunda columna
+\begin{tabular}{ll}
+  \toprule
+Fecha & Predicción \\ 
+  \midrule
+31/01/2026 & ₡521.27 \\ 
+28/02/2026 & ₡522.02 \\ 
+31/03/2026 & ₡522.94 \\ 
+30/04/2026 & ₡523.84 \\ 
+31/05/2026 & ₡524.77 \\ 
+30/06/2026 & ₡525.68 \\ 
+31/07/2026 & ₡526.66 \\ 
+31/08/2026 & ₡527.64 \\ 
+30/09/2026 & ₡528.68 \\ 
+31/10/2026 & ₡529.80 \\ 
+30/11/2026 & ₡530.78 \\ 
+31/12/2026 & ₡531.87 \\ 
+31/01/2027 & ₡533.00 \\ 
+28/02/2027 & ₡534.11 \\ 
+31/03/2027 & ₡535.33 \\ 
+  \bottomrule
+\end{tabular}
+
+\end{paracol}
 
 \subsection*{Demostración de arbitraje con un tipo de cambio futuro de ₡500 por dólar al 31/12/2024}
 
 En el escenario hipotético donde el tipo de cambio efectivo al 31 de diciembre de 2024 sea \( E_T = 500 \, \text{colones/dólar} \), se observa que este valor sería menor al tipo de cambio forward calculado como:
 \[
-k = \frac{E_t \cdot P_{\text{\$}}(t, T)}{P_{\text{₡}}(t, T)} = 515,12
+k = \frac{E_t \cdot P_{\$}(t, T)}{P_{\text{₡}}(t, T)} = 515,12
 \]
 Esto abriría la posibilidad de arbitraje:
 
@@ -87,11 +168,6 @@ Esto abriría la posibilidad de arbitraje:
 \end{itemize}
 
 Dado que el contrato forward se negocia de forma que su precio inicial sea cero, no habría costos presentes, lo que garantiza que cualquier diferencia futura positiva entre \( k \) y \( E_T \) represente una ganancia asegurada para el arbitrajista.
-
-\subsection*{Conclusión y recomendación}
-
-La implementación de un contrato forward de tipo de cambio representa una herramienta eficaz para mitigar el riesgo cambiario al fijar el tipo de cambio de las transacciones futuras. Basándonos en las proyecciones forward, se recomienda considerar el nivel \( k \) como referencia clave para definir los presupuestos y asegurar la estabilidad financiera de la empresa frente a la volatilidad cambiaria.
-
 
 % Finalizamos el documento
 \end{document}
