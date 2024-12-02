@@ -1,0 +1,83 @@
+\section{Estrategia de inmunización para la empresa ABC}
+
+La empresa ABC busca cubrir sus obligaciones de 60,000,000 de colones el \textbf{31/12/2025} y 50,000,000 de colones el \textbf{15/12/2030}, mediante la compra de bonos cero cupón con vencimientos en las fechas:  
+\begin{itemize}
+    \item \textbf{31/08/2025} (\(t_1\)),  
+    \item \textbf{31/12/2025} (\(t_2\)),  
+    \item \textbf{30/04/2027} (\(t_3\)),  
+    \item \textbf{15/12/2030} (\(t_4\)).  
+\end{itemize}
+
+Para determinar si existe una estrategia de inmunización, se deben verificar tres condiciones principales:
+
+\subsection*{Condición 1: Valor presente neto igual a cero}
+El valor presente neto (VPN) de los flujos debe ser igual a cero, es decir, el valor presente de los activos (bonos) debe igualar al valor presente de los pasivos (obligaciones). Esto se expresa como:  
+\[
+P(\rho) = x(1 + \rho(0,t_1))^{-\tau(0,t_1)} + y(1 + \rho(0,t_2))^{-\tau(0,t_2)} + z(1 + \rho(0,t_3))^{-\tau(0,t_3)} + w(1 + \rho(0,t_4))^{-\tau(0,t_4)}
+\]
+\[
+- 60,000,000(1 + \rho(0,t_2))^{-\tau(0,t_2)} - 50,000,000(1 + \rho(0,t_4))^{-\tau(0,t_4)} = 0,
+\]
+donde:
+\begin{itemize}
+    \item \(x, y, z, w\) son los valores faciales de los bonos adquiridos con vencimientos en \(t_1, t_2, t_3, t_4\), respectivamente,
+    \item \(\rho(0, t_i)\) es la tasa spot asociada al bono con vencimiento en \(t_i\),
+    \item \(\tau(0, t_i)\) es el tiempo hasta el vencimiento del bono \(t_i\).
+\end{itemize}
+
+\subsection*{Condición 2: Gradiente igual a cero}
+El gradiente de \(P(\rho)\) con respecto a cada \(\rho(0, t_i)\) debe ser igual a cero para asegurar que no existan desequilibrios marginales en la estrategia (la volatilidad de activos y pasivos debe ser la misma). Esto implica derivar \(P(\rho)\) respecto a cada \(\rho(0, t_i)\):
+
+\[
+\frac{\partial P}{\partial \rho(0,t_1)} = -\tau(0,t_1)x(1 + \rho(0,t_1))^{-\tau(0,t_1)-1} = 0,
+\]
+\[
+\frac{\partial P}{\partial \rho(0,t_2)} = -\tau(0,t_2)y(1 + \rho(0,t_2))^{-\tau(0,t_2)-1} + \tau(0,t_2)60,000,000(1 + \rho(0,t_2))^{-\tau(0,t_2)-1} = 0,
+\]
+\[
+\frac{\partial P}{\partial \rho(0,t_3)} = -\tau(0,t_3)z(1 + \rho(0,t_3))^{-\tau(0,t_3)-1} = 0,
+\]
+\[
+\frac{\partial P}{\partial \rho(0,t_4)} = -\tau(0,t_4)w(1 + \rho(0,t_4))^{-\tau(0,t_4)-1} + \tau(0,t_4)50,000,000(1 + \rho(0,t_4))^{-\tau(0,t_4)-1} = 0.
+\]
+
+Resolviendo estas ecuaciones, los valores óptimos son:
+\[
+x = 0, \quad z = 0, \quad y = 60,000,000, \quad w = 50,000,000.
+\]
+
+\subsection*{Condición 3: Hessiano definido positivo}
+Para que la estrategia sea válida, la matriz Hessiana de la función \(P(\rho)\) debe ser definida positiva, lo que implica que las segundas derivadas sean estrictamente positivas. Derivando nuevamente \(P(\rho)\) respecto a cada \(\rho(0,t_i)\) y evaluando en los valores óptimos, se obtiene:
+
+\[
+\frac{\partial^2 P}{\partial \rho(0,t_1)^2} = \tau(0,t_1)(\tau(0,t_1)+1)x(1 + \rho(0,t_1))^{-\tau(0,t_1)-2} = 0,
+\]
+\[
+\frac{\partial^2 P}{\partial \rho(0,t_2)^2} = \tau(0,t_2)(\tau(0,t_2)+1)y(1 + \rho(0,t_2))^{-\tau(0,t_2)-2} 
+\]
+\[
+- \tau(0,t_2)(\tau(0,t_2)+1)60,000,000(1 + \rho(0,t_2))^{-\tau(0,t_2)-2} = 0,
+\]
+\[
+\frac{\partial^2 P}{\partial \rho(0,t_3)^2} = \tau(0,t_3)(\tau(0,t_3)+1)z(1 + \rho(0,t_3))^{-\tau(0,t_3)-2} = 0,
+\]
+\[
+\frac{\partial^2 P}{\partial \rho(0,t_4)^2} = \tau(0,t_4)(\tau(0,t_4)+1)w(1 + \rho(0,t_4))^{-\tau(0,t_4)-2} 
+\]
+\[
+- \tau(0,t_4)(\tau(0,t_4)+1)50,000,000(1 + \rho(0,t_4))^{-\tau(0,t_4)-2} = 0.
+\]
+
+Como todas las segundas derivadas son iguales a cero, el Hessiano no es estrictamente positivo, lo que implica que no existe una estrategia válida de inmunización, puesto que la concavidad de activos y pasivos es la misma.
+
+\subsection*{Caso con emisión adicional de bonos en \(t_3\)}
+Si la empresa emite bonos con vencimiento en \(t_3 = 30/04/2027\), se agrega un nuevo pasivo (\(z > 0\)). Sin embargo, las condiciones permanecen iguales:
+\begin{itemize}
+    \item El gradiente permite soluciones con \(z = \text{nuevo pasivo en } t_3\),
+    \item Las segundas derivadas del Hessiano respecto a \(\rho(0,t_3)\) siguen siendo iguales a cero.
+\end{itemize}
+
+Por lo tanto, agregar un pasivo en \(t_3\) no cambia la situación: no se logra una estrategia válida de inmunización.
+
+\subsection*{Conclusión}
+No existe una estrategia de inmunización válida para la empresa ABC, ya sea en el caso original o incluyendo una nueva emisión de bonos con vencimiento en \(t_3\). Esto se debe a que las segundas derivadas de la función de valor presente son iguales a cero, lo que implica que los activos y pasivos tienen la misma concavidad, dejando a la empresa expuesta a riesgos por cambios en las tasas de interés.
