@@ -1,0 +1,264 @@
+\documentclass[paper=a4, fontsize=11pt,twoside]{article} % A4 paper and 11pt font size
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES            											  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage{verbatim} % Paquete para comentarios multilínea
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm} 
+\usepackage{mathrsfs}
+\usepackage{cancel} % Para escribir caracteres cancelados
+\usepackage{multicol} % Para separar el texto en columnas
+\usepackage{titlesec} % Para personalizar y ajustar el formato de los títulos de secciones
+\usepackage{changepage} % Paquete para ajustar los márgenes
+\usepackage[utf8]{inputenc} % Para cajas de texto horizontales
+%\usepackage[mathscr]{euscript} % Para usar \mathscr del otro tipo
+\usepackage{parskip} % Para cajas de texto horizontales
+\usepackage{blindtext} % Divide tanto el encabezado como el pie de página en tres areas (izquierda, centro y derecha) e incorpora comandos para escribir en cada una de ellas.
+\usepackage{fancyhdr} % Permite personalizar los encabezados y pies de página de un documento.
+\usepackage{geometry}
+\linespread{1.2} % Interlineado
+\usepackage{setspace}
+\usepackage{soul} % Para usar \u y que sea subrayado
+\usepackage{xcolor} % Para poner colores
+\usepackage{lifecon}
+\usepackage{framed} % Producen cajas de texto
+\usepackage[utf8]{inputenc} % Para poner notas al pie
+\usepackage{booktabs} % Para hacer tablas
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+\usepackage{array}
+\usepackage{hyperref}  % Paquete para hipervínculos
+\usepackage{titlesec}   % Para personalizar la apariencia de las secciones
+\usepackage{pgfplots}
+\usepackage{textcomp} % para \colones
+\usepackage{siunitx} % para \colones
+\pgfplotsset{compat=1.17}
+\usepackage{caption}  % Para personalizar el caption
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formateo de secciones e indice            									  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Configuración para que las secciones no tengan número, pero aparezcan en el índice
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{\baselineskip}
+\titleformat{\subsubsection}[block]{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{\baselineskip}{\baselineskip}
+
+% Comando para que las secciones sin número aparezcan en el índice
+\setcounter{secnumdepth}{0}
+
+
+\makeindex            % Habilita la creación de índices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formateo de página            									  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{
+    left=2.0cm, % El margen izquierdo mide 2.0cm
+    right=2.0cm, % El margen derecho mide 2.0cm
+    top=2.5cm, % El margen superior mide 2.0cm
+    bottom=2.5cm % El margen inferior mide 2.0cm
+}
+
+\pagestyle{fancy}
+\fancyhead{} % Borra el encabezado por defecto
+\fancyhead[LE,RO]{\text{Diego Vega V.}}
+\fancyhead[C]{Teoría del Interés}
+\fancyhead[LO,RE]{\text{Informe final}}
+\fancyfoot{} % Borra el pie por defecto
+\fancyfoot[RO,LE]{\thepage}
+\fancyfoot[LO,RE]{\text{CA0203}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MY COMMANDS   												  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Z}{\mathbb{Z}} % Signo enteros
+\newcommand{\Q}{\mathbb{Q}} % Signo Racionales
+\newcommand{\I}{\mathbb{I}} % Signo Iracionales
+\newcommand{\R}{\mathbb{R}} % Signo Reales
+\newcommand{\C}{\mathbb{C}} % Signo Complejos
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}} % Signo Naturales
+\newcommand{\punto}{\text{.}} % Punto
+
+\providecommand{\comillas}[1]{``#1''} % Para escribir "a" entre comillas
+\newcommand{\prts}[1]{\left(#1\right)} % Para escribir "a" entre paréntesis
+\newcommand{\corch}[1]{\left\{#1\right\}} % Para escribir "a" entre corchetes
+\newcommand{\cuad}[1]{\left[#1\right]} % Para escribir "a" entre corchetes cuadrados
+\newcommand{\abs}[1]{\lvert#1\rvert} % Para escribir el valor absoluto de "a"
+\newcommand{\Abs}[1]{\begin{vmatrix} #1 \end{vmatrix}} % Para escribir el valor absoluto de "a" más grande
+\newcommand{\intnom}[2]{{#1}^{(#2)}}
+\newcommand{\var}[1]{\text{Var}\left[#1\right]} % es el simbolo de varianza
+\newcommand{\E}[1]{\mathbb{E} \left[#1\right]} % Signo Esperanza
+\renewcommand{\P}[1]{\mathbb{P} \left[#1\right]} % Signo Probabilidad
+
+\sisetup{
+  group-separator={,},          % Coma como separador de miles
+  group-minimum-digits=4,       % Activar separador de miles a partir de 4 dígitos
+  round-mode=places,            % Redondeo por número de decimales
+  round-precision=2,            % Precisamente dos decimales
+  output-decimal-marker={.},    % Forzar el punto como separador decimal
+  parse-numbers=false           % No intentar procesar el símbolo ₡
+}
+
+% Definición del comando \colones para el formato de moneda
+\newcommand{\colones}[1]{₡\num{#1}}
+
+\begin{document}
+
+    \section*{Pregunta 1}
+
+    \subsection*{Consideraciones iniciales}
+
+    Se tiene tiene que el Banco Credit Solutions (BCS) ofrece 100 millones de colones con las siguientes condiciones:
+
+    \begin{itemize}
+        \item Denotaremos $\intnom{i}{2}$ a la tasa de interés nominal convertible semestralmente. Para este caso $\intnom{i}{2} = 14 \%$, 
+        \item El pago de los intereses se debe realizar al final de cada semestre.  Esto quiere decir que se trabajará con anualidades inmediatas con $i = \intnom{i}{2}/2$. El interés efectivo semestral lo denotaremos $i$.
+        \item La forma de liquidación del crédito corresponde a \textit{one lump-sum payment}. Es decir que se debe devolver el monto del crédito al final de los cinco años.
+        \item Se va a utilizar un fondo de amortización (sinking fund) en el que realizaría depósitos al final de cada trimestre por los 5 años con una tasa de interés anual efectiva de 7.5\%.
+    \end{itemize}
+
+    Dado que se tiene la tasa de interés anual efectiva de 7.5\% para el fondo de amortización y los depósitos al mismo fondo se realizarán trimestralmente, conviene saber la tasa de interés efectiva que se acumula cada trimestre, esta corresponde a $i_{trim}$ la cual se calcula de la siguiente forma:
+    \begin{equation}
+        (1+i_{trim})^4 = (1+7.5\%) \implies i_{trim} = \sqrt[4]{1,075} -1 
+        \label{interes.trimestral}
+    \end{equation}
+    En la presente sección se entiende 
+    \begin{itemize}
+        \item $K\cdot S_{\lcroof{n}\;i}$ Como el valor futuro del pago de $K$ unidades monetarias al final de $n$ periodos a una tasa de interés $i$ .
+        \item $K \cdot \prts{\dfrac{S_{\lcroof{n}\;i}}{S_{\lcroof{m}\;i}}}$ Como el valor futuro del pago de $K$ unidades monetarias con $m$ periodos de conversión del interés en un periodo de pago. $n$ sería el plazo de la anualidad medido en periodos de conversión del interés. Finalmente $i$ corresponde la tasa de interés por periodo de conversión del interés.
+        \item $X$ como la cantidad de la que debe disponer la empresa ABC por trimestre para cubrir los gastos del crédito otorgado por BCS.
+    \end{itemize}
+    
+    \subsection*{Desarrollo}
+
+    La siguiente ecuación permite calcular el valor de $X$, que representa la cantidad (en millones de colones) que la empresa ABC debe disponer por trimestre:
+
+    \begin{equation}
+        X\cdot S_{\lcroof{20}\;i=i_{trim}} - 7 \cdot \prts{\dfrac{S_{\lcroof{20}\;i_{trim}}}{S_{\lcroof{2}\;i_{trim}}}} = 100
+        \label{ecuación.principal}
+    \end{equation}
+
+    Esta ecuación expresa que el valor futuro de los pagos trimestrales de $X$ millones al final de los 20 trimestres (5 años) menos el valor futuro de los pagos de 7 millones, realizados al final de cada dos trimestres (semestralmente), debe ser igual a 100 millones. Este último valor corresponde al monto requerido para liquidar un crédito mediante un pago único final (\textit{one lump-sum payment}) al término de los 5 años.
+
+    \subsubsection*{Desglose de la ecuación:}
+
+    \begin{itemize}
+    
+        \item Primera parte:\\
+        \begin{center}
+            $X\cdot S_{\lcroof{20}\;i=i_{trim}}$
+        \end{center}
+        Representa los abonos que la empresa realiza trimestralmente a la cuenta de amortización. Aquí, $S_{\lcroof{20}\;i=i_{trim}}$ el factor de acumulación (valor futuro) para 20 trimestres, capitalizado trimestralmente al tipo de interés efectivo trimestral.
+
+        \item Segunda parte:\\
+        \begin{center}
+            $7 \cdot \prts{\frac{S_{\lcroof{20}\;i_{trim}}}{S_{\lcroof{2}\;i_{trim}}}}$
+        \end{center}
+        Representa los pagos de 7 millones realizados al final de cada dos trimestres (semestralmente). Aquí, se utiliza el cociente entre los factores de acumulación: $S_{\lcroof{20}\;i_{trim}}$ y $S_{\lcroof{2}\;i_{trim}}$ para 2 trimestres. Este cociente ajusta los valores al horizonte de 20 trimestres.
+    \end{itemize}
+
+    \subsubsection*{Interpretación de la ecuación:}
+
+    El lado izquierdo de la ecuación considera las entradas y salidas de la cuenta de amortización:
+    \begin{itemize}
+        \item Entradas: Los pagos trimestrales de $X$, cuyo valor futuro se acumula al final del período de 20 trimestres.
+        \item Salidas: Los pagos de 7 millones realizados semestralmente, ajustados para el mismo horizonte temporal (20 trimestres).
+    \end{itemize}
+    El lado derecho de la ecuación, igualado a 100, corresponde al monto total requerido al final del período para liquidar la deuda del crédito inicial.
+    
+    \subsubsection*{Solución de la ecuación:}
+
+    Para esta parte es importante recordar la definición del factor de acumulación de una anualidad inmediata de $n$ periodos a una tasa efectiva $i$ por periodo.
+
+    \begin{equation}
+        S_{\lcroof{n}\;i} = \dfrac{(1+i)^n-1}{i}
+        \label{Definicion.FactorAcumulación}
+    \end{equation}
+
+    A hora bien aplicando explícitamente \eqref{interes.trimestral} y \eqref{Definicion.FactorAcumulación} a la ecuación \eqref{ecuación.principal}, la ecuación queda de la siguiente forma:
+
+     \begin{center}
+         $X\cdot \prts{\dfrac{(1+(\sqrt[4]{1,075} -1))^{20}-1}{(\sqrt[4]{1,075} -1)}} - 7 \cdot \prts{\dfrac{\cuad{(1+(\sqrt[4]{1,075} -1))^{20}-1}/(\sqrt[4]{1,075} -1)}{\cuad{(1+(\sqrt[4]{1,075} -1))^{2}-1}/(\sqrt[4]{1,075} -1)}} = 100 $
+    \end{center}
+    Haciendo un poco de cálculos es fácil ver que 
+    \begin{center}
+        $X = \dfrac{100\prts{\sqrt[4]{1,075} -1}}{\prts{\sqrt[4]{1,075}}^{20}-1} + \dfrac{7\prts{\sqrt[4]{1,075} -1}}{\prts{\sqrt[4]{1,075}}^{2}-1} \approx 7,65646270$
+    \end{center}
+
+    De esta forma se puede concluir que la cuota mensual que debe destinarse cada trimestre corresponde a ₡{7,656,462.70}.% 7656462.70480034
+
+    \subsection*{Adicional}
+
+    \begin{multicols}{2}
+        Este cálculo también podría haberse resuelto utilizando ecuaciones en diferencias. En particular, sería necesario resolver el caso general de la siguiente ecuación:
+
+        \begin{center}
+            $S_n = (1+i_{trim})\cdot S_{n-1} + \left(X - \frac{1+(-1)^n}{2} \cdot 7 \right)$
+        \end{center}
+        
+        Con la condición inicial \( S_0 = 0 \). En esta ecuación, \( S_n \) representa el saldo de la cuenta de amortización al final del \( n \)-ésimo trimestre. Una vez resuelta la ecuación y obtenido un criterio para \( S_n \) que dependa únicamente de \( n \), basta con evaluar la solución en \( n=20 \) e igualarla a 100.
+
+        \columnbreak
+        La solución general a esta ecuación es:
+        
+        \begin{center}
+            $S_n = \displaystyle\sum_{r=1}^n \left(X - \frac{1+(-1)^r}{2} \cdot 7 \right)(1+i_{trim})^{n-r}$
+        \end{center}
+        
+        De esta forma, si consideramos la ecuación \eqref{interes.trimestral}, planteamos \( S_{20} = 100 \) y resolvemos para \( X \). Este procedimiento produce el mismo resultado que el obtenido previamente. Este enfoque se menciona porque fue el método utilizado para derivar la ecuación \eqref{ecuación.principal}.
+        
+    \end{multicols}
+
+    \subsection*{Tabla de Amortización}
+
+    La tabla presentada a continuación detalla los flujos financieros de la cuenta de amortización diseñados para liquidar una deuda mediante un pago único al final de un periodo de 20 trimestres. Este instrumento permite visualizar la evolución del saldo en la cuenta, considerando tanto los depósitos trimestrales como los intereses generados para cumplir con las obligaciones intermedias.
+    
+    \setlength{\abovecaptionskip}{10pt} % Aj
+    \begin{table}[ht]
+        \centering
+        \caption{Tabla de Amortización Trimestral}
+        \begin{tabular}{lllllll}
+            \toprule
+            \textbf{Fecha} & \textbf{Periodo} & \textbf{Int. Pagado} & \textbf{Depósitos} & \textbf{Int. Fondo} & \textbf{Saldo} & \textbf{Amortización} \\ 
+              \midrule
+              31/10/2024 & Trimestre 0 & ₡0.00 & ₡0.00 & ₡0.00 & ₡0.00 & ₡100,000,000.00 \\ 
+              31/01/2025 & Trimestre 1 & ₡0.00 & ₡7,656,462.70 & ₡0.00 & ₡7,656,462.70 & ₡92,343,537.30 \\ 
+              01/05/2025 & Trimestre 2 & ₡7,000,000.00 & ₡656,462.70 & ₡139,689.11 & ₡8,452,614.52 & ₡91,547,385.48 \\ 
+              31/07/2025 & Trimestre 3 & ₡0.00 & ₡7,656,462.70 & ₡154,214.58 & ₡16,263,291.80 & ₡83,736,708.20 \\ 
+              31/10/2025 & Trimestre 4 & ₡7,000,000.00 & ₡656,462.70 & ₡296,717.27 & ₡17,216,471.78 & ₡82,783,528.22 \\ 
+              31/01/2026 & Trimestre 5 & ₡0.00 & ₡7,656,462.70 & ₡314,107.66 & ₡25,187,042.14 & ₡74,812,957.86 \\ 
+              01/05/2026 & Trimestre 6 & ₡7,000,000.00 & ₡656,462.70 & ₡459,527.54 & ₡26,303,032.38 & ₡73,696,967.62 \\ 
+              31/07/2026 & Trimestre 7 & ₡0.00 & ₡7,656,462.70 & ₡479,888.33 & ₡34,439,383.42 & ₡65,560,616.58 \\ 
+              31/10/2026 & Trimestre 8 & ₡7,000,000.00 & ₡656,462.70 & ₡628,332.81 & ₡35,724,178.94 & ₡64,275,821.06 \\ 
+              31/01/2027 & Trimestre 9 & ₡0.00 & ₡7,656,462.70 & ₡651,773.39 & ₡44,032,415.04 & ₡55,967,584.96 \\ 
+              01/05/2027 & Trimestre 10 & ₡7,000,000.00 & ₡656,462.70 & ₡803,353.85 & ₡45,492,231.59 & ₡54,507,768.41 \\ 
+              31/07/2027 & Trimestre 11 & ₡0.00 & ₡7,656,462.70 & ₡829,987.62 & ₡53,978,681.92 & ₡46,021,318.08 \\ 
+              31/10/2027 & Trimestre 12 & ₡7,000,000.00 & ₡656,462.70 & ₡984,819.52 & ₡55,619,964.14 & ₡44,380,035.86 \\ 
+              31/01/2028 & Trimestre 13 & ₡0.00 & ₡7,656,462.70 & ₡1,014,764.06 & ₡64,291,190.90 & ₡35,708,809.10 \\ 
+              01/05/2028 & Trimestre 14 & ₡7,000,000.00 & ₡656,462.70 & ₡1,172,967.13 & ₡66,120,620.74 & ₡33,879,379.26 \\ 
+              31/07/2028 & Trimestre 15 & ₡0.00 & ₡7,656,462.70 & ₡1,206,344.35 & ₡74,983,427.80 & ₡25,016,572.20 \\ 
+              31/10/2028 & Trimestre 16 & ₡7,000,000.00 & ₡656,462.70 & ₡1,368,042.73 & ₡77,007,933.23 & ₡22,992,066.77 \\ 
+              31/01/2029 & Trimestre 17 & ₡0.00 & ₡7,656,462.70 & ₡1,404,979.02 & ₡86,069,374.96 & ₡13,930,625.04 \\ 
+              01/05/2029 & Trimestre 18 & ₡7,000,000.00 & ₡656,462.70 & ₡1,570,301.41 & ₡88,296,139.07 & ₡11,703,860.93 \\ 
+              31/07/2029 & Trimestre 19 & ₡0.00 & ₡7,656,462.70 & ₡1,610,927.84 & ₡97,563,529.62 & ₡2,436,470.38 \\ 
+              31/10/2029 & Trimestre 20 & ₡107,000,000.00 & ₡656,462.70 & ₡1,780,007.68 & ₡100,000,000.00 & ₡0.00 \\ 
+               \bottomrule
+        \end{tabular}
+    \end{table}
+
+    De la anterior tabla es importante mencionar que los meses impares se paga la totalidad dispuesta para ese trimestre $X=₡7,656,462.70$ y los impares se paga $X$ menos los intereses que se le deben pagar a BCS. Además cabe destacar que se asume que los depósitos se empiezan a realizar a finales de enero del siguiente año (31/01/2025). Este esquema permite a la empresa ABC garantizar que el fondo acumulado sea suficiente para realizar el pago único (\textit{one lump-sum payment}) al final del plazo. Además, destaca la eficiencia del mecanismo de capitalización de intereses, que contribuye significativamente al crecimiento del saldo acumulado.
+
+
+\end{document}
