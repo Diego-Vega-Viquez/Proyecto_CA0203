@@ -1,0 +1,250 @@
+\documentclass[paper=a4, fontsize=11pt,twoside]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{mathrsfs}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{longtable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURACIÓN                                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{
+    left=2.0cm,
+    right=2.0cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+\linespread{1.2}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LE,RO]{Universidad de Costa Rica}
+\fancyhead[C]{Teoría del Interés - Proyecto Final}
+\fancyfoot{}
+\fancyfoot[RO,LE]{\thepage}
+
+\titleformat{\section}[block]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{\baselineskip}{\baselineskip}
+\titleformat{\subsection}[block]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENTO                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\section*{Sección III: Portafolio de Inversión}
+
+\textbf{Nota aclaratoria: }Se está tomando en cuenta el dinero que se recibió hoy.
+\subsection*{(a) Cálculo e interpretación de índices financieros del portafolio}
+
+El análisis de un portafolio de bonos requiere comprender su comportamiento frente a cambios en las tasas de interés. En este caso, se calculan tres índices clave: \textbf{duración}, \textbf{volatilidad} y \textbf{convexidad}. Estos índices permiten evaluar la sensibilidad del portafolio a las tasas de interés, lo que es esencial para gestionar el riesgo y tomar decisiones informadas sobre ajustes en la cartera.
+
+\subsubsection*{1. Datos del Portafolio}
+
+El portafolio de la empresa ABC está compuesto por una combinación de bonos cero cupón y bonos cuponados, con diferentes características en términos de tasa de cupón, vencimiento y periodicidad de pago. Los datos de los bonos son los siguientes:
+
+\begin{longtable}{lcccccc}
+\caption{Bonos del Portafolio} \label{tab:bonos} \\ 
+\toprule
+\textbf{Tipo} & \textbf{Valor Facial (₡)} & \textbf{Tasa de Cupón} & \textbf{Vencimiento} & \textbf{Periodicidad (meses)} \\ 
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tipo} & \textbf{Valor Facial (₡)} & \textbf{Tasa de Cupón} & \textbf{Vencimiento} & \textbf{Periodicidad (meses)} \\ 
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Cero Cupón & 10,000,000  & 0     & 2025-03-18 & N/A  \\
+Cero Cupón & 35,000,000  & 0     & 2028-10-31 & N/A  \\
+Cero Cupón & 80,000,000  & 0     & 2029-08-15 & N/A  \\
+Cuponado   & 15,000,000  & 0.03  & 2026-01-31 & 4    \\
+Cuponado   & 20,000,000  & 0.02  & 2027-02-28 & 12   \\
+Cuponado   & 23,000,000  & 0.04  & 2029-06-30 & 3    \\
+Cuponado   & 40,000,000  & 0.07  & 2030-04-30 & 2    \\ 
+\end{longtable}
+
+\subsubsection*{2. Cálculo de Índices Financieros}
+
+El análisis de los índices financieros se basa en tres conceptos clave: \textbf{duración}, \textbf{volatilidad} y \textbf{convexidad}, que se calculan con base en los flujos de efectivo de los bonos y las tasas de interés asociadas.
+
+\paragraph*{2.1. Duración:}
+
+La \textbf{duración} es una medida que cuantifica el tiempo promedio ponderado hasta que se recuperan los flujos de efectivo de un bono. Este índice es crucial para entender cómo un bono o un portafolio de bonos reacciona a cambios en las tasas de interés. Una duración más larga significa que el bono o portafolio será más sensible a las variaciones en las tasas.
+
+La fórmula para la duración de un bono es:
+
+\[
+D^{(i)} = \frac{\sum_{t=1}^n \tau(t, T_t) \cdot CF_t \cdot (1 + \rho(t, T_t))^{-\tau(t, T_t)}}{\sum_{t=1}^n CF_t \cdot (1 + \rho(t, T_t))^{-\tau(t, T_t)}},
+\]
+
+donde:
+\begin{itemize}
+    \item \( \tau(t, T_t) = \frac{\text{Días entre } t \text{ y } T_t}{365.25} \) es el tiempo hasta el vencimiento expresado en años,
+    \item \( CF_t \) es el flujo de efectivo en el tiempo \( t \),
+    \item \( \rho(t, T_t) \) es la tasa de interés para el vencimiento \( T_t \) en el tiempo \( t \).
+\end{itemize}
+
+Para el portafolio de bonos, la duración del portafolio \( D \) se calcula como la duración ponderada de cada bono, ajustada por el porcentaje que cada bono representa en el valor total del portafolio:
+
+\[
+D = \frac{P^{(1)} \cdot D^{(1)}}{P} + \frac{P^{(2)} \cdot D^{(2)}}{P} + \cdots + \frac{P^{(m)} \cdot D^{(m)}}{P},
+\]
+
+donde:
+\begin{itemize}
+    \item \( P^{(i)} \) es el precio del bono \( i \),
+    \item \( D^{(i)} \) es la duración del bono \( i \),
+    \item \( P \) es el valor total del portafolio, dado por \( P = P^{(1)} + P^{(2)} + \cdots + P^{(m)} \).
+\end{itemize}
+
+Expandiendo la fórmula de duración del portafolio con la definición de \( D^{(i)} \), obtenemos:
+
+\[
+D = \frac{P^{(1)} \cdot \frac{\sum_{t=1}^n \tau(t, T) \cdot CF_t^{(1)} \cdot (1 + \rho(t, T))^{-\tau(t, T)}}{P^{(1)}}}{P} + \cdots + \frac{P^{(m)} \cdot \frac{\sum_{t=1}^n \tau(t, T) \cdot CF_t^{(m)} \cdot (1 + \rho(t, T))^{-\tau(t, T)}}{P^{(m)}}}{P}.
+\]
+
+Simplificando, se puede escribir como:
+
+\[
+D = \frac{\sum_{t=1}^n \tau(t, T) \cdot \big(CF_t^{(1)} + \cdots + CF_t^{(m)}\big) \cdot (1 + \rho(t, T))^{-\tau(t, T)}}{P}.
+\]
+
+En esta expresión:
+\begin{itemize}
+    \item La suma de los flujos de efectivo ponderados por \( \tau(t, T) \) y descontados por \( (1 + \rho(t, T))^{-\tau(t, T)} \) representa la contribución de todos los bonos en el portafolio.
+    \item El denominador \( P \) normaliza esta contribución al valor total del portafolio.
+\end{itemize}
+
+Por lo tanto, la duración del portafolio es el promedio ponderado de las duraciones de sus componentes. Esto refleja cómo los cambios en la tasa de interés afectan el valor total del portafolio, tomando en cuenta tanto las características individuales de los bonos como su relevancia dentro del portafolio.
+
+\paragraph*{2.2. Volatilidad}
+
+La \textbf{volatilidad} mide cómo un bono o portafolio de bonos reacciona a los cambios en las tasas de interés. Específicamente, se trata de la sensibilidad del precio del bono ante cambios en las tasas. Un bono con alta volatilidad tendrá un precio más sensible a las fluctuaciones de las tasas de interés.
+
+
+La fórmula para calcular la volatilidad de un bono es la siguiente:
+\[
+V = \sum_{t=1}^n \tau(t, T) \cdot CF_t \cdot (1 + \rho(t, T))^{-(\tau(t, T)+1)},
+\]
+donde \(T\) representa el vencimiento del bono y \(CF_t\) los flujos de efectivo en cada periodo.
+
+
+De manera similar a la duración, la volatilidad total de un portafolio se obtiene ponderando la volatilidad de cada bono según su proporción dentro del valor total del portafolio. Esto permite una evaluación más precisa del riesgo asociado a la variabilidad de los precios en un conjunto de bonos. La volatilidad proporciona una medida proporcional de cómo varía el precio de un bono por un cambio unitario en la tasa de interés. Por ejemplo, si la volatilidad es \( V = 0.05 \), esto indica que un incremento del 1\% en la tasa de interés resultará en una caída aproximada del 5\% en el precio del bono, y viceversa.Para un portafolio de bonos, la \textbf{volatilidad del portafolio} se calcula como el promedio ponderado de la volatilidad de sus componentes.
+
+
+\paragraph*{2.3. Convexidad}
+
+La \textbf{convexidad} mide la curvatura de la relación entre el precio de un bono y las tasas de interés. Mientras que la duración evalúa la sensibilidad lineal del precio ante pequeños cambios en las tasas de interés, la convexidad se encarga de capturar los efectos no lineales. En otras palabras, permite medir cómo cambia la sensibilidad del precio (duración) ante variaciones más grandes en las tasas de interés.
+
+Un bono con una convexidad más alta tiende a ser más estable frente a grandes fluctuaciones en las tasas, ya que su precio reacciona de manera más moderada. Por esta razón, la convexidad es particularmente útil para gestionar el riesgo de interés en entornos de alta volatilidad.
+
+La fórmula para la convexidad de un bono es:
+
+\[
+C = \frac{1}{P} \sum_{t=1}^n CF_t \cdot \frac{\tau(t,T) \cdot (\tau(t,T) + 1)}{(1 + \rho(t, T))^{\tau(t,T) + 2}},
+\]
+
+donde:
+\begin{itemize}
+    \item \(P\) es el precio del bono,
+    \item \(CF_t\) es el flujo de efectivo en el tiempo \(t\),
+    \item \( \tau(t,T) = \frac{\text{Días entre } t \text{ y } T}{365.25} \) es el tiempo en años entre el momento actual \(t\) y el vencimiento \(T\),
+    \item \( \rho(t,T) \) es la tasa de interés aplicable en el tiempo \(t\) para el vencimiento \(T\).
+\end{itemize}
+
+\subparagraph*{Interpretación de la Fórmula}
+La convexidad tiene en cuenta:
+\begin{itemize}
+    \item \textbf{La ponderación temporal:} \( \tau(t,T) \cdot (\tau(t,T) + 1) \), que otorga más peso a los flujos de efectivo recibidos más tarde.
+    \item \textbf{El descuento:} \( (1 + \rho(t,T))^{\tau(t,T) + 2} \), que refleja el valor presente de los flujos de efectivo considerando el efecto compuesto de las tasas de interés.
+\end{itemize}
+
+Por lo tanto, los flujos de efectivo más lejanos y las tasas de interés más altas tienden a influir más en el cálculo de la convexidad.
+
+\subparagraph*{Convexidad en un Portafolio}
+Para un portafolio de bonos, la convexidad total se calcula como el promedio ponderado de la convexidad de cada bono, ajustada por su proporción en el valor total del portafolio:
+
+\[
+C_{portfolio} = \frac{P^{(1)} \cdot C^{(1)}}{P} + \frac{P^{(2)} \cdot C^{(2)}}{P} + \cdots + \frac{P^{(m)} \cdot C^{(m)}}{P},
+\]
+
+donde:
+\begin{itemize}
+    \item \(C^{(i)}\) es la convexidad del bono \(i\),
+    \item \(P^{(i)}\) es el precio de mercado del bono \(i\),
+    \item \(P = \sum_{i=1}^m P^{(i)}\) es el valor total del portafolio.
+\end{itemize}
+
+\subparagraph*{Importancia de la Convexidad}
+Un portafolio con alta convexidad será menos sensible a cambios bruscos en las tasas de interés y, por lo tanto, presenta un perfil de riesgo más conservador. Esto hace que la convexidad sea una herramienta esencial en la gestión del riesgo de tasas de interés, especialmente en contextos de alta incertidumbre económica.
+
+\subsubsection*{3. Resultados del Análisis}
+
+Los resultados obtenidos para los índices de duración, volatilidad y convexidad del portafolio son los siguientes:
+
+\begin{table}[h!]
+\centering
+\caption{Resultados de los índices financieros del portafolio (valores reales y ponderados)}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Bono} & \textbf{Duración } & \textbf{Volatilidad } & \textbf{Convexidad} \\ 
+\midrule
+A (Cero cupón) & 0.3778 & 0.3618 & 0.4773 \\
+B (Cero cupón) & 4.0000 & 3.7789 & 17.8504 \\
+C (Cero cupón) & 4.7885 & 4.5141 & 24.6326 \\
+D (Cuponado)   & 1.1517 & 1.0987 & 2.3294 \\
+E (Cuponado)   & 1.8733 & 1.7806 & 5.3285 \\
+F (Cuponado)   & 3.6540 & 3.4500 & 17.1961 \\
+G (Cuponado)   & 4.0227 & 3.7920 & 21.1434 \\
+\midrule
+\textbf{Total ponderado} & \textbf{3.5414} & \textbf{3.3431} & \textbf{16.9352} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\subsubsection*{4. Interpretación de los Resultados}
+
+\begin{itemize}
+    \item \textbf{Duración}: La duración total del portafolio es de \(3.5414\) años, lo que representa una sensibilidad moderada del portafolio a los cambios en las tasas de interés. Esto significa que, en promedio, el portafolio recuperará su valor presente en \(3.5414\) años. Los bonos con mayor duración, como el Bono C (\(4.7885\)) y el Bono G (\(4.0227\)), son los más sensibles a las variaciones en las tasas de interés. Un aumento en las tasas afectará de forma más pronunciada a estos bonos en comparación con aquellos con menor duración, como el Bono A (\(0.3778\)) o el Bono D (\(1.1517\)).
+
+    \item \textbf{Volatilidad}: La volatilidad total del portafolio es de \(3.3431\), lo que refleja una sensibilidad considerable del valor del portafolio a cambios en las tasas de interés. Este nivel de volatilidad sugiere que los precios de los bonos dentro del portafolio pueden experimentar fluctuaciones importantes ante variaciones en las tasas. Bonos como el Bono C (\(4.5141\)) y el Bono G (\(3.7920\)) contribuyen significativamente a esta volatilidad, lo que indica que presentan un mayor riesgo de precio frente a cambios en las tasas, mientras que bonos como el Bono A (\(0.3618\)) aportan menor riesgo al portafolio.
+
+    \item \textbf{Convexidad}: La convexidad total del portafolio es de \(16.9352\), lo que indica que el portafolio tiene una buena capacidad para amortiguar movimientos extremos en las tasas de interés. Bonos con alta convexidad, como el Bono C (\(24.6326\)) y el Bono G (\(21.1434\)), son los principales contribuyentes a este comportamiento estabilizador, proporcionando un mayor margen de seguridad ante grandes fluctuaciones en las tasas. Por otro lado, bonos con menor convexidad, como el Bono A (\(0.4773\)) y el Bono D (\(2.3294\)), ofrecen menos protección en este sentido. La convexidad también implica que, en situaciones de alta volatilidad de tasas, el portafolio estará mejor preparado para manejar cambios extremos, ya que este indicador amortigua los efectos adversos no lineales de dichas fluctuaciones.
+\end{itemize}
+
+\subsection*{5. Conclusiones}
+
+A partir de los cálculos realizados y los resultados obtenidos, se concluye que el portafolio de la empresa ABC presenta una sensibilidad moderada a los cambios en las tasas de interés, con una duración total de \(3.5414\) años. Este valor indica que, en promedio, el portafolio recuperará su valor presente en un período de aproximadamente 3.54 años. En términos prácticos, esto significa que el portafolio tiene una exposición moderada a los cambios en las tasas de interés: una subida en las tasas podría resultar en una disminución significativa en el valor del portafolio, especialmente por la influencia de los bonos de mayor duración, como los Bonos C y G.
+
+\begin{itemize}
+    \item \textbf{Duración:} La duración total del portafolio, de \(3.5414\) años, refleja un perfil de riesgo moderado en cuanto a la sensibilidad frente a las variaciones de tasas de interés. En otras palabras, el portafolio es relativamente sensible a los cambios en las tasas, lo que implica que una variación de 1\% en las tasas de interés resultaría en una variación proporcional del valor presente de aproximadamente \(3.5414\%\) en dirección opuesta a los movimientos de las tasas. Esto subraya la importancia de considerar las tasas de interés futuras al gestionar la estructura de bonos dentro del portafolio, especialmente en un entorno de tasas fluctuantes.
+    \item \textbf{Volatilidad:} El valor total de volatilidad del portafolio, \(3.3431\), refleja una exposición considerable a las fluctuaciones en las tasas de interés. Esto indica que el portafolio es sensible a variaciones en las tasas, con un impacto particularmente acentuado en los bonos con mayor volatilidad, como el Bono C y el Bono G. Este comportamiento resalta la importancia de gestionar adecuadamente los riesgos asociados a las variaciones de precio.
+    \item \textbf{Convexidad:} Con una convexidad total de \(16.9352\), el portafolio demuestra una notable capacidad para mitigar los efectos negativos de cambios extremos en las tasas de interés. Los bonos con alta convexidad, como el Bono C (\(24.6326\)) y el Bono G (\(21.1434\)), contribuyen a la estabilidad del portafolio, ofreciendo protección frente a escenarios de alta volatilidad. Esto otorga una ventaja estratégica al portafolio, al reducir su sensibilidad a grandes fluctuaciones en las tasas de interés.
+\end{itemize}
+
+
+
+
+
+\end{document}
+
